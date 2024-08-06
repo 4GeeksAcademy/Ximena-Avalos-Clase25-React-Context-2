@@ -32,23 +32,27 @@ const ContactCard = ({ contact, onDelete }) => {
           />
         </div>
         <div className="col-md-8">
-          <div className="card-body">
-            <h5 className="card-title">{contact.name}</h5>
-            <p className="card-text">
-              <i className="fas fa-map-marker-alt"></i> {contact.address}
-            </p>
-            <p className="card-text">
-              <i className="fas fa-phone"></i> {contact.phone}
-            </p>
-            <p className="card-text">
-              <i className="fas fa-envelope"></i> {contact.email}
-            </p>
-            <Link to={`/agendas/${agendaSlug}/edit-contact/${contact.id}`} className="btn btn-light mr-2">
-              <i className="fas fa-pencil-alt"></i>
-            </Link>
-            <button className="btn btn-light" onClick={handleDelete}>
-              <i className="fas fa-trash-alt"></i>
-            </button>
+          <div className="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h5 className="card-title">{contact.name}</h5>
+              <p className="card-text">
+                <i className="fas fa-map-marker-alt"></i> {contact.address}
+              </p>
+              <p className="card-text">
+                <i className="fas fa-phone"></i> {contact.phone}
+              </p>
+              <p className="card-text">
+                <i className="fas fa-envelope"></i> {contact.email}
+              </p>
+            </div>
+            <div className="d-flex">
+              <Link to={`/agendas/${agendaSlug}/edit-contact/${contact.id}`} className="btn btn-light mr-2">
+                <i className="fas fa-pencil-alt"></i>
+              </Link>
+              <button className="btn btn-light" onClick={handleDelete}>
+                <i className="fas fa-trash-alt"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
