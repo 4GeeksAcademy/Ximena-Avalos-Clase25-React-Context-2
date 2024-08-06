@@ -5,8 +5,9 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
-import Agendas from "./views/agendas";
-import Contacts from "./views/contacts";
+import { Agendas } from "./views/agendas";
+import { Contacts } from "./views/contacts";
+import { AddContact } from "./views/addContact";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -31,6 +32,7 @@ const Layout = () => {
 						<Route path="*" element={<h1>Not found!</h1>} />
 						<Route path="/agendas" element={<Agendas />} />
 						<Route path="/agendas/:agendaSlug" element={<Contacts />} />
+						<Route path="/agendas/:agendaSlug/add-contact" element={<AddContact />} />
 					</Routes>
 					<Footer />
 					<AddAgendaModal /> 

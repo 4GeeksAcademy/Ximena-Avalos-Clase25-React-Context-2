@@ -67,6 +67,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  console.error(`Error fetching contacts: ${error.message}`);
 				}
 			  },
+			  createContact: async (agendaSlug, contact) => {
+                try {
+                    const response = await fetch(`https://playground.4geeks.com/contact/agendas/${agendaSlug}/contacts`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(contact)
+                    });
+                    if (response.ok) {
+                        const newContact = await response.json();
+                        setStore({
+                            contacts: [...getStore().contacts, newContact]
+                        });
+                    } else {
+                        console.error('Error al crear el contacto', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error al crear el contacto', error);
+                }
+            },
+			  
             }
         }
     };
