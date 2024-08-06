@@ -8,6 +8,7 @@ import { Single } from "./views/single";
 import { Agendas } from "./views/agendas";
 import { Contacts } from "./views/contacts";
 import { AddContact } from "./views/addContact";
+import { EditContact } from "./views/editContact";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -33,6 +34,7 @@ const Layout = () => {
 						<Route path="/agendas" element={<Agendas />} />
 						<Route path="/agendas/:agendaSlug" element={<Contacts />} />
 						<Route path="/agendas/:agendaSlug/add-contact" element={<AddContact />} />
+						<Route path="/agendas/:agendaSlug/edit-contact/:contactId" element={<EditContact />} />
 					</Routes>
 					<Footer />
 					<AddAgendaModal /> 

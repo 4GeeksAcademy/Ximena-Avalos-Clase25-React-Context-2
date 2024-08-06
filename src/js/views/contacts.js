@@ -16,6 +16,10 @@ export const Contacts = () => {
     navigate(`/agendas/${agendaSlug}/add-contact`);
   };
 
+  const handleDeleteContact = (contactId) => {
+    actions.deleteContact(agendaSlug, contactId);
+  };
+
   return (
     <div className="container">
       <h1>Contacts in {agendaSlug} agenda</h1>
@@ -24,7 +28,7 @@ export const Contacts = () => {
         <p>No contacts available</p>
       ) : (
         store.contacts.map((contact, index) => (
-          <ContactCard key={index} contact={contact} />
+          <ContactCard key={index} contact={contact} onDelete={handleDeleteContact} />
         ))
       )}
     </div>

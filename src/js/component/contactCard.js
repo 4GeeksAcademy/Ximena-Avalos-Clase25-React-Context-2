@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link, useParams } from 'react-router-dom';
+import ConfirmationModal from './confirmationModal'; // Importa el nuevo componente
 
-const ContactCard = ({ contact }) => {
+const ContactCard = ({ contact, onDelete }) => {
+  const { agendaSlug } = useParams();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleDelete = () => {
+    setShowModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    setShowModal(false);
+    onDelete(contact.id);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="card mb-3">
       <div className="row no-gutters">
@@ -25,21 +43,27 @@ const ContactCard = ({ contact }) => {
             <p className="card-text">
               <i className="fas fa-envelope"></i> {contact.email}
             </p>
-            <button className="btn btn-light mr-2">
+            <Link to={`/agendas/${agendaSlug}/edit-contact/${contact.id}`} className="btn btn-light mr-2">
               <i className="fas fa-pencil-alt"></i>
-            </button>
-            <button className="btn btn-light">
+            </Link>
+            <button className="btn btn-light" onClick={handleDelete}>
               <i className="fas fa-trash-alt"></i>
             </button>
           </div>
         </div>
       </div>
+      <ConfirmationModal 
+        show={showModal} 
+        onClose={handleCloseModal} 
+        onConfirm={handleConfirmDelete} 
+      />
     </div>
   );
 };
 
 ContactCard.propTypes = {
-  contact: PropTypes.object.isRequired
+  contact: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 export default ContactCard;

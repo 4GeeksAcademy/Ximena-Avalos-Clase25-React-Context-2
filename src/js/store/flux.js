@@ -89,6 +89,47 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error('Error al crear el contacto', error);
                 }
             },
+			updateContact: async (agendaSlug, contactId, updatedContact) => {
+                try {
+                    const response = await fetch(`https://playground.4geeks.com/contact/agendas/${agendaSlug}/contacts/${contactId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(updatedContact)
+                    });
+                    if (response.ok) {
+                        const updatedContactData = await response.json();
+                        const updatedContacts = getStore().contacts.map(contact => 
+                            contact.id === contactId ? updatedContactData : contact
+                        );
+                        setStore({ contacts: updatedContacts });
+                    } else {
+                        console.error('Error updating contact', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error updating contact', error);
+                }
+            },
+			deleteContact: async (agendaSlug, contactId) => {
+                try {
+                    const response = await fetch(`https://playground.4geeks.com/contact/agendas/${agendaSlug}/contacts/${contactId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    if (response.ok) {
+                        const updatedContacts = getStore().contacts.filter(contact => contact.id !== contactId);
+                        setStore({ contacts: updatedContacts });
+                    } else {
+                        console.error('Error deleting contact', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error deleting contact', error);
+                }
+            },
 			  
             }
         }
