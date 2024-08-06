@@ -1,3 +1,40 @@
-/* 
-    General Styles
-*/
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+  }
+  
+  .card-text {
+    font-size: 0.875rem;
+  }
+  
+  .btn-light {
+    color: #333;
+    border: 1px solid #ccc;
+  }
+  .card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .btn-light {
+    background-color: #f8f9fa;
+    border: none;
+    margin-right: 5px;
+  }
+  
+  .btn-light:hover {
+    background-color: #e2e6ea;
+  }

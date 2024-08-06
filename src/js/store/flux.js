@@ -1,45 +1,74 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
+    return {
+        store: {
+            agendas: [],
+			contacts: []
+        },
+        actions: {
+            createAgenda: async (slug) => {
+                try {
+                    const response = await fetch(`https://playground.4geeks.com/contact/agendas/${slug}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    });
+                    if (response.ok) {
+                        const newAgenda = await response.json();
+                        setStore({
+                            agendas: [...getStore().agendas, newAgenda]
+                        });
+                    } else {
+                        console.error('Error al crear la agenda', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error al crear la agenda', error);
+                }
+            },
+			getAgendas: async () => {
+				try {
+				  const response = await fetch(`https://playground.4geeks.com/contact/agendas?offset=0&limit=100`, {
+					method: "GET",
+					headers: {
+					  "Content-Type": "application/json"
+					}
+				  });
+				  if (!response.ok) throw new Error('Error fetching agendas');
+				  const data = await response.json();
+				  console.log('Agendas fetched', data);
+		
+				  // Actualizamos el store con las agendas obtenidas
+				  setStore({ agendas: data.agendas });
+				} catch (error) {
+				  console.error(`Error fetching agendas: ${error.message}`);
 				}
-			]
-		},
-		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
-		}
-	};
-};
+			  },
+			  getContacts: async (agendaSlug) => {
+				try {
+				  const response = await fetch(`https://playground.4geeks.com/contact/agendas/${agendaSlug}/contacts`, {
+					method: "GET",
+					headers: {
+					  "Content-Type": "application/json"
+					}
+				  });
+				  if (!response.ok) throw new Error('Error fetching contacts');
+				  const data = await response.json();
+				  console.log('Contacts fetched', data);
+			  
+				  // Add a default image to each contact if not available
+				  const contactsWithImages = data.contacts.map(contact => ({
+					...contact,
+					image: contact.image || 'https://via.placeholder.com/150'
+				  }));
+			  
+				  setStore({ contacts: contactsWithImages });
+				} catch (error) {
+				  console.error(`Error fetching contacts: ${error.message}`);
+				}
+			  },
+            }
+        }
+    };
 
 export default getState;
