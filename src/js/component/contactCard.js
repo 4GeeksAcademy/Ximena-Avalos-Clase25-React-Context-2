@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
-import ConfirmationModal from './confirmationModal'; // Importa el nuevo componente
-
+import ConfirmationModal from './confirmationModal'; 
 const ContactCard = ({ contact, onDelete }) => {
   const { agendaSlug } = useParams();
   const [showModal, setShowModal] = useState(false);
@@ -25,7 +24,7 @@ const ContactCard = ({ contact, onDelete }) => {
       <div className="row no-gutters">
         <div className="col-md-4 d-flex align-items-center justify-content-center">
           <img 
-            src={contact.image || 'https://via.placeholder.com/150'} 
+            src={contact.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ_Mo26_I0wLIq2OD7O1I-3-5cZ1XxBR214w&s'} 
             className="card-img rounded-circle img-thumbnail" 
             alt="Contact" 
             style={{ width: '150px', height: '150px', objectFit: 'cover' }}

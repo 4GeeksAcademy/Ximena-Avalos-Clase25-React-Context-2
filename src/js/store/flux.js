@@ -38,7 +38,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  const data = await response.json();
 				  console.log('Agendas fetched', data);
 		
-				  // Actualizamos el store con las agendas obtenidas
 				  setStore({ agendas: data.agendas });
 				} catch (error) {
 				  console.error(`Error fetching agendas: ${error.message}`);
@@ -56,10 +55,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  const data = await response.json();
 				  console.log('Contacts fetched', data);
 			  
-				  // Add a default image to each contact if not available
 				  const contactsWithImages = data.contacts.map(contact => ({
 					...contact,
-					image: contact.image || 'https://via.placeholder.com/150'
+					image: contact.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ_Mo26_I0wLIq2OD7O1I-3-5cZ1XxBR214w&s'
 				  }));
 			  
 				  setStore({ contacts: contactsWithImages });
